@@ -50,7 +50,7 @@ const App = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 to-gray-800 text-white">
       <div className="w-full max-w-lg p-8 bg-gray-700 rounded-lg shadow-md">
-        <h1 className="text-3xl font-semibold text-center mb-8">Enhanced Timer</h1>
+        <p className="text-xl font-semibold text-center mb-8">Lets contribute and make more creative</p>
 
         {!isRunning ? (
           <div className="space-y-6">
