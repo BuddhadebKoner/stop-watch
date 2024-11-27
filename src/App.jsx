@@ -51,11 +51,11 @@ const App = () => {
   const handleHoursChange = (value) => {
     const numericValue = parseInt(value, 10);
     if (numericValue > 24) {
-      setHours(24); 
+      setHours(24);
     } else if (numericValue >= 0) {
       setHours(numericValue);
     } else {
-      setHours(''); 
+      setHours('');
     }
   };
 
@@ -63,12 +63,12 @@ const App = () => {
     const numericValue = parseInt(value, 10);
     if (numericValue >= 60) {
       const extraHours = Math.floor(numericValue / 60);
-      setMinutes(numericValue % 60); 
+      setMinutes(numericValue % 60);
       setHours((prev) => Math.min(24, (parseInt(prev, 10) || 0) + extraHours));
     } else if (numericValue >= 0) {
       setMinutes(numericValue);
     } else {
-      setMinutes(''); 
+      setMinutes('');
     }
   };
 
@@ -91,12 +91,14 @@ const App = () => {
     } else if (numericValue >= 0) {
       setSeconds(numericValue);
     } else {
-      setSeconds(''); 
+      setSeconds('');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 to-gray-800 text-white no-select"
+      onContextMenu={(e) => e.preventDefault()}
+    >
       <div className="w-full rounded-lg flex flex-col justify-center items-center">
         <p className="text-xl font-semibold text-center mb-8">Lets contribute and make more creative</p>
         {!isRunning ? (
@@ -133,18 +135,21 @@ const App = () => {
             </button>
           </div>
         ) : (
-          <div className="text-center">
+          <div className="text-center ">
             <p className="text-[15vw] font-bold mb-6">{formatTime(timeLeft)}</p>
             <button
               onClick={handleReset}
-              className="px-3 py-3 bg-red-600 hover:bg-red-500 rounded-lg font-semibold transition duration-200 absolute top-10 right-10"
+              className="px-2 py-2   hover:bg-red-500 rounded-lg font-semibold transition duration-200 absolute top-10 right-10"
             >
-              Reset Timer
+              <img
+                className='w-6 h-6'
+                src="/reset.svg"
+                alt="reset-timer" />
             </button>
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 };
 

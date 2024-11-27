@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* For Chrome, Edge, and Safari */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -13,4 +12,13 @@ input[type="number"]::-webkit-outer-spin-button {
 /* For Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+html {
+  /* font inter */
+  font-family: 'Inter', sans-serif;
+}
+
+.no-select {
+  user-select: none;
 }
