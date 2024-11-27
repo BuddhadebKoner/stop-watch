@@ -7,6 +7,7 @@ const App = () => {
   const [timeLeft, setTimeLeft] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
 
+
   useEffect(() => {
     let timer;
     if (isRunning && timeLeft > 0) {
