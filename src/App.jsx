@@ -47,34 +47,80 @@ const App = () => {
     return `${h}:${m}:${s}`;
   };
 
+  const handleHoursChange = (value) => {
+    const numericValue = parseInt(value, 10);
+    if (numericValue > 24) {
+      setHours(24); 
+    } else if (numericValue >= 0) {
+      setHours(numericValue);
+    } else {
+      setHours(''); 
+    }
+  };
+
+  const handleMinutesChange = (value) => {
+    const numericValue = parseInt(value, 10);
+    if (numericValue >= 60) {
+      const extraHours = Math.floor(numericValue / 60);
+      setMinutes(numericValue % 60); 
+      setHours((prev) => Math.min(24, (parseInt(prev, 10) || 0) + extraHours));
+    } else if (numericValue >= 0) {
+      setMinutes(numericValue);
+    } else {
+      setMinutes(''); 
+    }
+  };
+
+  const handleSecondsChange = (value) => {
+    const numericValue = parseInt(value, 10);
+    if (numericValue >= 60) {
+      const extraMinutes = Math.floor(numericValue / 60);
+      setSeconds(numericValue % 60);
+      setMinutes((prev) => {
+        const newMinutes = (parseInt(prev, 10) || 0) + extraMinutes;
+        if (newMinutes >= 60) {
+          const extraHours = Math.floor(newMinutes / 60);
+          setHours((prevHours) =>
+            Math.min(24, (parseInt(prevHours, 10) || 0) + extraHours)
+          );
+          return newMinutes % 60;
+        }
+        return newMinutes;
+      });
+    } else if (numericValue >= 0) {
+      setSeconds(numericValue);
+    } else {
+      setSeconds(''); 
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 to-gray-800 text-white">
-      <div className="w-full max-w-lg p-8 bg-gray-700 rounded-lg shadow-md">
+      <div className="w-full rounded-lg ">
         <p className="text-xl font-semibold text-center mb-8">Lets contribute and make more creative</p>
-
         {!isRunning ? (
-          <div className="space-y-6">
+          <div className="space-y-6 max-w-lg">
             <div className="flex justify-between space-x-4">
               <input
                 type="number"
                 value={hours}
-                onChange={(e) => setHours(e.target.value)}
-                placeholder="Hours"
-                className="w-1/3 px-4 py-2 bg-gray-600 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => handleHoursChange(e.target.value)}
+                placeholder="Hrs"
+                className="w-1/3 px-4 py-3 bg-gray-600 text-center rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="number"
                 value={minutes}
-                onChange={(e) => setMinutes(e.target.value)}
-                placeholder="Minutes"
-                className="w-1/3 px-4 py-2 bg-gray-600 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => handleMinutesChange(e.target.value)}
+                placeholder="Mins"
+                className="w-1/3 px-4 py-3 bg-gray-600 text-center rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="number"
                 value={seconds}
-                onChange={(e) => setSeconds(e.target.value)}
-                placeholder="Seconds"
-                className="w-1/3 px-4 py-2 bg-gray-600 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => handleSecondsChange(e.target.value)}
+                placeholder="Secs"
+                className="w-1/3 px-4 py-3 bg-gray-600 text-center rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -87,7 +133,7 @@ const App = () => {
           </div>
         ) : (
           <div className="text-center">
-            <p className="text-5xl font-bold mb-6">{formatTime(timeLeft)}</p>
+            <p className="text-[15vw] font-bold mb-6">{formatTime(timeLeft)}</p>
             <button
               onClick={handleReset}
               className="px-6 py-3 bg-red-600 hover:bg-red-500 rounded-lg font-semibold transition duration-200"
