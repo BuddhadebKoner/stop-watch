@@ -96,7 +96,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 to-gray-800 text-white">
-      <div className="w-full rounded-lg ">
+      <div className="w-full rounded-lg flex flex-col justify-center items-center">
         <p className="text-xl font-semibold text-center mb-8">Lets contribute and make more creative</p>
         {!isRunning ? (
           <div className="space-y-6 max-w-lg">
@@ -136,7 +136,7 @@ const App = () => {
             <p className="text-[15vw] font-bold mb-6">{formatTime(timeLeft)}</p>
             <button
               onClick={handleReset}
-              className="px-6 py-3 bg-red-600 hover:bg-red-500 rounded-lg font-semibold transition duration-200"
+              className="px-3 py-3 bg-red-600 hover:bg-red-500 rounded-lg font-semibold transition duration-200 absolute top-10 right-10"
             >
               Reset Timer
             </button>
